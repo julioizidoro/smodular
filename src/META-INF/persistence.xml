@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="sModularPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>NotaFiscal.Clienteproduto</class>
+    <class>NotaFiscal.Produtotemp</class>
+    <class>model.Acerto</class>
+    <class>model.Acesso</class>
+    <class>model.Aliquota</class>
+    <class>model.Auxproduto</class>
+    <class>model.Banco</class>
+    <class>model.Bandeirascartao</class>
+    <class>model.Chequefechacaixa</class>
+    <class>model.Chequemovbanco</class>
+    <class>model.Chequemovcaixa</class>
+    <class>model.Cliente</class>
+    <class>model.Clienteendereco</class>
+    <class>model.Clientefechamento</class>
+    <class>model.Clientehistorico</class>
+    <class>model.Configuracao</class>
+    <class>model.Contasreceber</class>
+    <class>model.Contasreceberforma</class>
+    <class>model.Contasreceberpagamento</class>
+    <class>model.Contasreceberprodutos</class>
+    <class>model.Contolechequefornecedor</class>
+    <class>model.Controlecheques</class>
+    <class>model.Creditoreceberprodutos</class>
+    <class>model.Creditosreceber</class>
+    <class>model.Devolucao</class>
+    <class>model.Devolucaocredito</class>
+    <class>model.Devolucaoproduto</class>
+    <class>model.Emissorecf</class>
+    <class>model.Empresa</class>
+    <class>model.Estoque</class>
+    <class>model.Faturasreceber</class>
+    <class>model.Faturasreceberparcelas</class>
+    <class>model.Fechacaixa</class>
+    <class>model.Formapagamento</class>
+    <class>model.Formavenda</class>
+    <class>model.Fornecedor</class>
+    <class>model.Grupoconta</class>
+    <class>model.Grupoproduto</class>
+    <class>model.Movimentobanco</class>
+    <class>model.Movimentocaixa</class>
+    <class>model.Parcelacartao</class>
+    <class>model.Planoconta</class>
+    <class>model.Produto</class>
+    <class>model.Reducaoz</class>
+    <class>model.Retirada</class>
+    <class>model.Saida</class>
+    <class>model.Subgrupo</class>
+    <class>model.Subgrupoproduto</class>
+    <class>model.Terminalcliente</class>
+    <class>model.Terminalproduto</class>
+    <class>model.Usuarios</class>
+    <class>model.Venda</class>
+    <class>model.Vendedor</class>
+    <class>model.Vinculo</class>
+    <class>view.Viewconsultaprodutoestoque</class>
+    <properties>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.password" value="simples"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:8082/jGDynamic?zeroDateTimeBehavior=convertToNull"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="notaFiscalPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>NotaFiscal.Clienteproduto</class>
+    <class>NotaFiscal.Produtotemp</class>
+    <properties>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.password" value="simples"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:8082/notafiscal"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+    </properties>
+  </persistence-unit>
+</persistence>
