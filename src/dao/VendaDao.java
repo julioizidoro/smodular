@@ -43,24 +43,30 @@ public class VendaDao {
 
     public int ultimaVendaGravada() throws Exception {
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         //verificar last insert id
         Query q = manager.createNativeQuery("Select MAX(idVenda) From Venda where CondicaoPagamento='A VISTA'");
         int idVenda = (Integer)q.getSingleResult();
+        manager.getTransaction().commit();
         return idVenda;
     }
 
     public Venda getVenda(int idVenda) throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select v From Venda v where v.idvenda=" + idVenda);
         Venda venda = (Venda) q.getSingleResult();
+        manager.getTransaction().commit();
         return venda;
     }
     
     public List<Saida> listarSaidaVenda(int idVenda)throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select s From Saida s where s.venda=" + idVenda);
         List<Saida> listaSaida = new ArrayList<Saida>();
         listaSaida = q.getResultList();
+        manager.getTransaction().commit();
         return listaSaida;
     }
     
@@ -82,9 +88,11 @@ public class VendaDao {
     
     public List<Venda> ListarVenda(int idFechaCaixa) throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select v From Venda v where v.fechacaixa=" + idFechaCaixa  + " and v.CondicaoPagamento='A VISTA'");
         List<Venda> listavenda = new ArrayList<Venda>();
         listavenda = q.getResultList();
+        manager.getTransaction().commit();
         return listavenda;
     }
     
@@ -97,8 +105,4 @@ public class VendaDao {
         //fechando uma transação
         manager.getTransaction().commit();
     }
-    
-    
-    
-    
 }

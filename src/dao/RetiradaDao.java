@@ -42,9 +42,11 @@ public class RetiradaDao {
     
     public List<Retirada> listarRetiradas(Fechacaixa fechaCaixa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select r FROM Retirada r where r.fechacaixa=" + fechaCaixa.getIdfechaCaixa());
         List<Retirada> listaRetirada = new ArrayList<Retirada>();
         listaRetirada = q.getResultList();
+        manager.getTransaction().commit();
         return listaRetirada;
     }
     

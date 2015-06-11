@@ -37,48 +37,60 @@ public class ClienteDao {
     
     public Cliente consultarDocFederal(String docFederal) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Cliente cliente = new Cliente();
         Query q = manager.createQuery("select c from Cliente c where c.docFederal='" + docFederal + "'");
         if (q.getResultList().size()>0){
             cliente =  (Cliente) q.getResultList().get(0);
+            manager.getTransaction().commit();
             return cliente;
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }
     
     public Cliente consultarClienteId(int idCliente) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Cliente cliente = new Cliente();
         Query q = manager.createQuery("select c from Cliente c where c.idcliente=" + idCliente);
         if (q.getResultList().size()>0){
             cliente =  (Cliente) q.getResultList().get(0);
+            manager.getTransaction().commit();
             return cliente;
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }
     
     public List<Cliente> consultarCliente() throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Cliente> listaCliente = new ArrayList<Cliente>();
         Query q = manager.createQuery("select c from Cliente c order by c.nome" );
         if (q.getResultList().size()>0){
             listaCliente =   q.getResultList();
+            manager.getTransaction().commit();
             return listaCliente;
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }
     
     public List<Cliente> consultarClienteNome(String nome) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Cliente> listaCliente = new ArrayList<Cliente>();
         Query q = manager.createQuery("select c from Cliente c where c.nome like '" + nome + "%' order by c.nome" );
         if (q.getResultList().size()>0){
             listaCliente =   q.getResultList();
+            manager.getTransaction().commit();
             return listaCliente;
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }
@@ -104,12 +116,15 @@ public class ClienteDao {
     
     public Clienteendereco consultarClienteEndereco(int idCliente) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Clienteendereco endereco = new Clienteendereco();
         Query q = manager.createQuery("select e from Clienteendereco e where e.clienteIdcliente=" + idCliente);
         if (q.getResultList().size()>0){
             endereco= (Clienteendereco) q.getResultList().get(0);
+            manager.getTransaction().commit();
             return endereco;
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }
@@ -118,12 +133,15 @@ public class ClienteDao {
     
     public List<Clientehistorico> listarClienteHistorico(int idCliente) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Clientehistorico> listaClienteHistoricos = new ArrayList<Clientehistorico>();
         Query q = manager.createQuery("select c from Clientehistorico c where c.cliente = " + idCliente + " order by c.data desc" );
         if (q.getResultList().size()>0){
             listaClienteHistoricos =   q.getResultList();
+            manager.getTransaction().commit();
             return listaClienteHistoricos;
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }

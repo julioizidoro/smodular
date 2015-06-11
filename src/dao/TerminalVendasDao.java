@@ -41,19 +41,21 @@ public class TerminalVendasDao {
 
     public List<Terminalcliente> consultaTerminalCliente() throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Terminalcliente> listaTerminalCliente = new ArrayList<Terminalcliente>();
         Query q = manager.createQuery("select t from Terminalcliente t order by t.nome");
         listaTerminalCliente = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaTerminalCliente;
     }
     
     public List<Terminalproduto> consultaTerminalProduto(Terminalcliente terminalCliente) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Terminalproduto> listaTerminalProduto = new ArrayList<Terminalproduto>();
         Query q = manager.createQuery("select t from  Terminalproduto t where t.terminalcliente=" +  terminalCliente.getIdterminalCliente() + " Order by t.idterminalProduto");
         listaTerminalProduto = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaTerminalProduto;
     }
 
@@ -80,9 +82,10 @@ public class TerminalVendasDao {
     public int ultimoTerminalClienteGravada() throws Exception {
         manager = ConexaoSingleton.getConexao();
         //verificar last insert id
+        manager.getTransaction().begin();
         Query q = manager.createNativeQuery("Select MAX(idterminalCliente) From TerminalCliente");
         int id = (Integer)q.getSingleResult();
-        manager.close();
+        manager.getTransaction().commit();
         return id;
     }
     
@@ -98,12 +101,13 @@ public class TerminalVendasDao {
     
     public Terminalcliente getTerminalCliente(String nome) throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Terminalcliente terminal = null;
         Query q = manager.createQuery("select t from Terminalcliente t where t.nome='" + nome + "'  order by t.nome");
         if (q.getResultList().size()>0){
             terminal = (Terminalcliente) q.getResultList().get(0);
         }
-        manager.close();
+        manager.getTransaction().commit();
         return terminal;
     }
     

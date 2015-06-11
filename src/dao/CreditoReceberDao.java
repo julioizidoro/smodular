@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import model.Contasreceberprodutos;
 import model.Creditoreceberprodutos;
 import model.Creditosreceber;
 
@@ -55,20 +54,23 @@ public class CreditoReceberDao {
     public List<Creditosreceber> listarCreditos(String sql) throws SQLException{
         List<Creditosreceber> listaCreditosReceber = new ArrayList<Creditosreceber>();
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         listaCreditosReceber = q.getResultList();
+        manager.getTransaction().commit();
         return listaCreditosReceber;
     }
     
     public List<Creditoreceberprodutos> listaCreditoProdutos(int idCredito) throws SQLException{
         List<Creditoreceberprodutos> listaCreditosReceberProdutos = new ArrayList<Creditoreceberprodutos>();
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Creditoreceberprodutos c where c.creditosreceber=" + idCredito);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }
+        manager.getTransaction().commit();
         return null;
     }
-    
-    
 }

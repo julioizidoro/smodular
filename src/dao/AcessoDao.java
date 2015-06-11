@@ -20,10 +20,13 @@ public class AcessoDao {
     
     public Acesso getAcessoUsuario(int idUsuario) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("select a from Acesso a where a.usuarios=" + idUsuario);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return (Acesso) q.getSingleResult();
         }
+        manager.getTransaction().commit();
         return null;
     }
     

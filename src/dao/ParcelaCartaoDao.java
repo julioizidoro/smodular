@@ -24,7 +24,6 @@ public class ParcelaCartaoDao {
         manager.merge(parcelaCartao);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
     }
     
 }

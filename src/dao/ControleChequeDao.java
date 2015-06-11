@@ -38,26 +38,35 @@ public class ControleChequeDao {
     
     public List<Controlecheques> listarCheques(String sql) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Controlecheques> listaCheques = new ArrayList<Controlecheques>();
         Query q = manager.createQuery(sql);
         if (q.getResultList().size()>0){
             listaCheques = q.getResultList();
+            manager.getTransaction().commit();
             return listaCheques;
-        }else return null;
+        }else {
+            manager.getTransaction().commit();
+            return null;
+        }
     }
     
     public Controlecheques listarChequesid(int idCheque) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Controlecheques c where c.situacao='CAIXA' and c.idControleCheques=" +
                 idCheque);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return (Controlecheques) q.getResultList().get(0);
         }
+        manager.getTransaction().commit();
         return null;
     }
     
     public List<Contolechequefornecedor> consultarFornecedor(int idFornecedor) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         String data = "";
         try {
             data ="";// Formatacao.SubtarirDatas(new Date(), 90, "yyyy/MM/dd");
@@ -67,16 +76,25 @@ public class ControleChequeDao {
         Query q = manager.createQuery("Select c from Contolechequefornecedor c where c.fornecedor=" + idFornecedor +
                 " and dataFornecedor>='" + data + "'");
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return   q.getResultList();
-        }else return null;
+        }else {
+            manager.getTransaction().commit();
+            return null;
+        }
     }
     
     public Contolechequefornecedor consultarFornecedorCheque(int idControleCheques) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Contolechequefornecedor c where c.controlecheques=" + idControleCheques);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return   (Contolechequefornecedor) q.getSingleResult();
-        }else return null;
+        }else {
+            manager.getTransaction().commit();
+            return null;
+        }
     }
     
     public void salvarFornecedor(Contolechequefornecedor fornecedor) throws Exception {
@@ -90,11 +108,16 @@ public class ControleChequeDao {
     
     public Controlecheques consultarCheque(int idControleCheques) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Controlecheques> listaCheques = new ArrayList<Controlecheques>();
         Query q = manager.createQuery("Select c from Controlecheques c where c.idControleCheques=" + idControleCheques);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return (Controlecheques) q.getSingleResult();
-        }else return null;
+        }else {
+            manager.getTransaction().commit();
+            return null;
+        }
     }
     
     public Chequefechacaixa salvarCehqueFechaCaixa(Chequefechacaixa cheque) throws SQLException{
@@ -129,10 +152,13 @@ public class ControleChequeDao {
     
     public List<Chequefechacaixa>  ListaChequesCaixa(int idFechaCaixa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Chequefechacaixa c where c.fechacaixa=" + idFechaCaixa);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return   q.getResultList();
         }
+        manager.getTransaction().commit();
         return null;
     }
     
@@ -158,10 +184,13 @@ public class ControleChequeDao {
     
     public Chequefechacaixa  ListaChequesCaixaid(int idControleCheque) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from chequefechacaixa c where c.controlecheques" + idControleCheque);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return   (Chequefechacaixa) q.getResultList().get(0);
         }
+        manager.getTransaction().commit();
         return null;
     }
 }

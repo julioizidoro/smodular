@@ -31,10 +31,13 @@ public class ConfiguracaoDao {
     
     public Configuracao getConfiguracao(int idEmpresa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Configuracao c where c.empresa=" + idEmpresa);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return (Configuracao) q.getResultList().get(0);
         }
+        manager.getTransaction().commit();
         return null;
     }
     

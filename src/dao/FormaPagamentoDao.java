@@ -23,20 +23,22 @@ public class FormaPagamentoDao {
 
     public List<Formapagamento> getFormaPagamento() throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Formapagamento> listaFormaPagamento = new ArrayList<Formapagamento>();
         Query q = manager.createQuery("Select f from Formapagamento f where f.bandeiraCartao=3 order by f.idformaPagamento");
         listaFormaPagamento = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaFormaPagamento;
 
     }
     
     public List<Formapagamento> getFormaPagamentoBandeiraCartao(int idBandeiraCartao) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Formapagamento> listaFormaPagamento = new ArrayList<Formapagamento>();
         Query q = manager.createQuery("Select f from Formapagamento f where f.bandeiraCartao=" + idBandeiraCartao + " order by f.idformaPagamento");
         listaFormaPagamento = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaFormaPagamento;
     }
     
@@ -48,7 +50,6 @@ public class FormaPagamentoDao {
         formaPagamento = manager.find(Formapagamento.class, idFormaPagamento);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
         return formaPagamento;
     }
     
@@ -59,16 +60,16 @@ public class FormaPagamentoDao {
         formaPagamento = manager.merge(formaPagamento);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
         return formaPagamento;
     }
     
     public List<Formapagamento> listarFormaPagamentoValor() throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Formapagamento> listaFormaPagamento = new ArrayList<Formapagamento>();
         Query q = manager.createQuery("Select f from Formapagamento f where f.valor>0 order by f.idformaPagamento");
         listaFormaPagamento = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaFormaPagamento;
 
     }

@@ -20,13 +20,11 @@ import Controller.FormaPagamentoController;
 import Controller.UsuariosController;
 import Controller.VendaController;
 import Interface.FormaPagamentoTableModel;
-import Interface.FrmCadastrarClienteTerminal;
 import Interface.FrmConsultaProduto;
 import Interface.FrmDadosCliente;
 import Interface.FrmRetirada;
 import Interface.FrmSelecionarClienteTerminal;
 import Interface.TerminalVendasTableModel;
-import NotaFiscal.FrmClienteProduto;
 import Regras.Config;
 import Regras.Formatacao;
 import Regras.ImprimirEmissao;
@@ -963,7 +961,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
         if ((evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) && (CodigojTextField.getText().length() > 0)) {
             gerarQuantidadeCodigo();
             if (this.venda == null) {
-                getVendedor(1);
+                getVendedor(config.getVendedor());
                 this.mensagemCupom = "Obrigado, volte sempre !!!";
                 venda = new Vendas(config, this.fechacaixa, this.vendedor, this.teclaF4, this.fechamento, this.devolucao);
                 this.venda.getVenda().setCaixa(config.getIdCaixa());
@@ -1362,7 +1360,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
         terminalcliente.setPercDesconto(0.0f);
         terminalcliente.setValorCompra(this.venda.TotalVenda());
         terminalcliente.setValorDesconto(0.0f);
-        terminalcliente.setVendedor(1);
+        terminalcliente.setVendedor(vendedor.getIdvendedor());
         TerminalVendasFacade terminalVendasFacade = new TerminalVendasFacade();
         try {
             terminalcliente = terminalVendasFacade.salvarCliente(terminalcliente);

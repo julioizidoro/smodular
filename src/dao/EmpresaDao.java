@@ -21,18 +21,22 @@ public class EmpresaDao {
     
     public Empresa buscarEmpresa(int idEmpresa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Empresa empresa = new Empresa();
         Query q = manager.createQuery("select e from Empresa e where e.idempresa=" + idEmpresa);
         if (q.getResultList().size()>0){
             empresa=  (Empresa) q.getSingleResult();
         }
+        manager.getTransaction().commit();
         return empresa;
     }
     
     public List<Empresa> buscarEmpresa() throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Empresa empresa = new Empresa();
         Query q = manager.createQuery("select e from Empresa e");
+        manager.getTransaction().commit();
         return q.getResultList();
     }
     

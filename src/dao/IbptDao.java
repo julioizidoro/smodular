@@ -21,20 +21,26 @@ public class IbptDao {
     
     public List<Ibpt> listarIbpt() throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("select i from Ibpt i order by i.descricao" );
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }
     
     public List<Ibpt> listarIbpt(String descricao) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("select i from Ibpt i where i.descricao like '%" + descricao + "%' order by i.descricao" );
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }

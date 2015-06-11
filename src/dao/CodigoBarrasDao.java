@@ -32,23 +32,29 @@ public class CodigoBarrasDao {
     
     public CodigoBarras pesquisarCodigo(String barras) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         CodigoBarras codigoBarras = new CodigoBarras();
         Query q = manager.createQuery("select c from CodigoBarras c where c.barras='" + barras+ "'");
         if (q.getResultList().size()>0){
             codigoBarras =  (CodigoBarras) q.getResultList().get(0);
+            manager.getTransaction().begin();
             return codigoBarras;
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }
     
     public List<CodigoBarras> pesquisarProduto(int idProduto) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         CodigoBarras codigoBarras = new CodigoBarras();
         Query q = manager.createQuery("select c from CodigoBarras c where c.produto=" + idProduto);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }else {            
+            manager.getTransaction().commit();
             return null;
         }
     }

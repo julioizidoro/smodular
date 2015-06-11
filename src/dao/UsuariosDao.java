@@ -20,19 +20,25 @@ public class UsuariosDao {
     
     public Usuarios consultarUsuario(String login, String senha) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("SELECT u FROM Usuarios u WHERE u.login='" + login + "' and u.senha='" + senha + "'");
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return (Usuarios) q.getSingleResult();
         }
+        manager.getTransaction().commit();
         return null;
     }
     
     public Usuarios consultarUsuario(int idUsuario) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("SELECT u FROM Usuarios u WHERE u.idusuarios=" + idUsuario);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return (Usuarios) q.getSingleResult();
         }
+        manager.getTransaction().commit();
         return null;
     }
     
@@ -57,10 +63,13 @@ public class UsuariosDao {
     
     public Usuarios consultarUsuario(String senha) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("SELECT u FROM Usuarios u WHERE u.senha='" + senha + "'");
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return (Usuarios) q.getSingleResult();
         }
+        manager.getTransaction().commit();
         return null;
     }
 

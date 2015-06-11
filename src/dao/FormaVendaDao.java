@@ -28,16 +28,16 @@ public class FormaVendaDao {
         formaVenda = manager.merge(formaVenda);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
         return formaVenda;
     }
     
     public List<Formavenda> consultarFormaVenda(int idVenda) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select v From Formavenda v where v.venda=" + idVenda);
         List<Formavenda> listaFormaVenda = new ArrayList<Formavenda>();
         listaFormaVenda = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaFormaVenda;
     }
 }

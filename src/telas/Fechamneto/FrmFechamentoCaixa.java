@@ -16,6 +16,7 @@ import Controller.FechaCaixaController;
 import Controller.UsuariosController;
 import Regras.Formatacao;
 import Regras.UsuarioLogado;
+import controler.ConexaoSingleton;
 import java.awt.Dialog.ModalExclusionType;
 import java.sql.Time;
 import java.util.Date;
@@ -174,6 +175,7 @@ public class FrmFechamentoCaixa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelajButtonActionPerformed
+        ConexaoSingleton.desconectar();
         System.exit(0);
     }//GEN-LAST:event_cancelajButtonActionPerformed
 
@@ -219,6 +221,7 @@ public void finalizarUsuario(int idFechaCaixa){
         usuarios = usuarioLogado.getUsuario();
         usuarios.setIdFechaCaixa(idFechaCaixa);
         usuariosController.salvarUsuario(usuarios);
+        ConexaoSingleton.desconectar();
         System.exit(0);
     }
 }

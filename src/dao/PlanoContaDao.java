@@ -22,37 +22,45 @@ public class PlanoContaDao {
 
     public List<Planoconta> consultarPlanoconta(String descricao) throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("SELECT p FROM Planoconta p WHERE p.descricao Like '%" + descricao + "%' order by p.descricao");
         List<Planoconta> listaPlanoContas = new ArrayList<Planoconta>();
         listaPlanoContas =  q.getResultList();
+        manager.getTransaction().commit();
         return listaPlanoContas;
     }
 
     public List<Planoconta> consultarPlanoconta() throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("SELECT p FROM Planoconta p order by p.descricao");
         List<Planoconta> listaPlanoContas = new ArrayList<Planoconta>();
         listaPlanoContas =  q.getResultList();
+        manager.getTransaction().commit();
         return listaPlanoContas;
     }
     
     public Planoconta consultarPlanoconta(int idPlanoContas) throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Planoconta planoContas = new Planoconta();
         Query q = manager.createQuery("SELECT p FROM Planoconta p where idPlanoconta=" + idPlanoContas);
         if (q.getResultList().size()>0){
             planoContas = (Planoconta) q.getSingleResult();
         }
+        manager.getTransaction().commit();
         return planoContas;
     }
     
     public Planoconta consultarPlanocontaNuemroConta(String numeroConta) throws Exception{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Planoconta planoContas = new Planoconta();
         Query q = manager.createQuery("SELECT p FROM Planoconta p where p.numeroConta='" + numeroConta + "'");
         if (q.getResultList().size()>0){
             planoContas = (Planoconta) q.getSingleResult();
         }
+        manager.getTransaction().commit();
         return planoContas;
     }
 
@@ -75,6 +83,4 @@ public class PlanoContaDao {
         //fechando uma transação
         manager.getTransaction().commit();
     }
-
-
 }

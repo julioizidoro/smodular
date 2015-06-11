@@ -20,7 +20,9 @@ public class BandeiraCartaoDao {
     
     public List<Bandeirascartao> listarBandeirasCartao() throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("select b from Bandeirascartao b where b.nome<>'Nenhuma'  order by b.idbandeirasCartao");
+        manager.getTransaction().commit();
         return q.getResultList();
     }
 }

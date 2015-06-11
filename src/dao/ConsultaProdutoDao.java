@@ -25,28 +25,31 @@ public class ConsultaProdutoDao {
 
     public List<Viewconsultaprodutoestoque> consultaEstoque(int idEmpresa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Viewconsultaprodutoestoque> listaProdutos = new ArrayList<Viewconsultaprodutoestoque>();
         Query q = manager.createQuery("SELECT c FROM Viewconsultaprodutoestoque c where c.empresa=" + idEmpresa);
         listaProdutos = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaProdutos;
     }
 
     public List<Viewconsultaprodutoestoque> consultaEstoque(String descricao, int idEmpresa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Viewconsultaprodutoestoque> listaProdutos = new ArrayList<Viewconsultaprodutoestoque>();
         Query q = manager.createQuery("SELECT c FROM Viewconsultaprodutoestoque c WHERE c.descricao like '" +  descricao + "%' and c.empresa="  + idEmpresa + " order by c.descricao");
         listaProdutos = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaProdutos;
     }
 
      public List<Viewconsultaprodutoestoque> consultaEstoque(int idProduto, int idEmpresa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         List<Viewconsultaprodutoestoque> listaProdutos = new ArrayList<Viewconsultaprodutoestoque>();
         Query q = manager.createQuery("SELECT c FROM Viewconsultaprodutoestoque c WHERE c.idProduto =" +  idProduto + "  and c.empresa=" + idEmpresa);
         listaProdutos = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaProdutos;
     }
 

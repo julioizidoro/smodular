@@ -33,6 +33,7 @@ public class Config {
     private String dataReducaoZ;
     private String portaParalela;
     private String portaSerial;
+    private int vendedor;
 
     public String getIdCaixa() {
         return idCaixa;
@@ -44,6 +45,14 @@ public class Config {
 
     public String getPortaSerial() {
         return portaSerial;
+    }
+
+    public int getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(int vendedor) {
+        this.vendedor = vendedor;
     }
 
     public void setPortaSerial(String portaSerial) {
@@ -114,6 +123,7 @@ public class Config {
             carregarEmissorECF(Integer.parseInt(id));
             setPortaParalela(props.getProperty("portaParalela"));
             setPortaSerial(props.getProperty("portaSerial"));
+            setVendedor(Integer.parseInt(props.getProperty("vendedor")));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();

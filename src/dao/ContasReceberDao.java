@@ -32,7 +32,6 @@ public class ContasReceberDao {
         manager.getTransaction().begin();
         contasReceber = manager.merge(contasReceber);
         manager.getTransaction().commit();
-        manager.close();
         return contasReceber;
     }
     
@@ -101,18 +100,21 @@ public class ContasReceberDao {
     public List<Contasreceber> listarContas(String sql) throws SQLException{
         List<Contasreceber> listaContasReceber = new ArrayList<Contasreceber>();
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         System.out.println(sql);
         Query q = manager.createQuery(sql);
         listaContasReceber = q.getResultList();
+        manager.getTransaction().commit();
         return listaContasReceber;
     }
     
     public List<Faturasreceber> listarFaturas(String sql) throws SQLException{
         List<Faturasreceber> listaFaturasReceber = new ArrayList<Faturasreceber>();
         manager = ConexaoSingleton.getConexao();
-        System.out.println(sql);
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         listaFaturasReceber = q.getResultList();
+        manager.getTransaction().commit();
         return listaFaturasReceber;
     }
     
@@ -153,34 +155,44 @@ public class ContasReceberDao {
     public List<Faturasreceberparcelas> listarFaturasParcelas(String sql) throws SQLException{
         List<Faturasreceberparcelas> listaFaturasReceberParcela = new ArrayList<Faturasreceberparcelas>();
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }
+        manager.getTransaction().commit();
         return null;
     }
     
     public List<Contasreceberpagamento> consultarContasReceberPagamento(int idFechaCaixa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Contasreceberpagamento c where c.fechaCaixa=" + idFechaCaixa);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }
+        manager.getTransaction().commit();
         return null;
     }
     
     public List<Contasreceberforma> consultarFormaPagamento(int idContasReceberPagamento, String forma) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Contasreceberforma c where c.contasreceberpagamento=" + idContasReceberPagamento + " and c.formaRecebimento='" +
                 forma + "'");
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }
+        manager.getTransaction().commit();
         return null;
     }
     
     public Float valorFormaPagamento(int idFormaPagamento, int idFechaCaixa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         String sql = "SELECT distinct sum(contasreceberforma.valorPago) as valorPago "
         + " FROM  Contasreceberforma join contasreceberpagamento "
         + " on contasreceberforma.contasreceberpagamento_idcontasreceberpagamento = contasreceberpagamento.idcontasreceberpagamento" +
@@ -191,6 +203,7 @@ public class ContasReceberDao {
         if (valor==null){
             valor =0.0;
         }
+        manager.getTransaction().commit();
         return valor.floatValue();
     }
     
@@ -202,16 +215,18 @@ public class ContasReceberDao {
         manager.remove(produto);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
     }
         
     public List<Contasreceberprodutos> listaContasReceberProdutos(int idContasReceber) throws SQLException{
         List<Contasreceberprodutos> listaContasReceberProdutos = new ArrayList<Contasreceberprodutos>();
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Contasreceberprodutos c where c.contasreceber=" + idContasReceber);
         if (q.getResultList().size()>0){
+            manager.getTransaction().commit();
             return q.getResultList();
         }
+        manager.getTransaction().commit();
         return null;
     }
     
@@ -223,8 +238,5 @@ public class ContasReceberDao {
         //fechando uma transação
         manager.getTransaction().commit();
         return contasReceberProduto;
-    }   
-    
-    
-    
+    }
 }

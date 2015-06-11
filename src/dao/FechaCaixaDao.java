@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Fechacaixa;
@@ -35,6 +34,7 @@ public class FechaCaixaDao {
 
     public Fechacaixa getFechaCaixa(String caixa, int idUsuario) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Fechacaixa fechaCaixa = new Fechacaixa();
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
         String data = df.format(new Date());
@@ -42,21 +42,26 @@ public class FechaCaixaDao {
                 idUsuario + " and  f.valorFechamento=0 and f.situacao='ABERTO'");
         if (q.getResultList().size()>0){
             fechaCaixa=  (Fechacaixa) q.getResultList().get(0);
+            manager.getTransaction().commit();
             return fechaCaixa;
                     
         }
+        manager.getTransaction().commit();
         return null;
     }
     
     
     public Fechacaixa getFechaCaixa(int idFechaCaixa) throws SQLException{
         manager = ConexaoSingleton.getConexao();
+        manager.getTransaction().begin();
         Fechacaixa fechaCaixa = new Fechacaixa();
         Query q = manager.createQuery("select f from Fechacaixa f where f.idfechaCaixa=" + idFechaCaixa);
         if (q.getResultList().size()>0){
             fechaCaixa=  (Fechacaixa) q.getResultList().get(0);
+            manager.getTransaction().commit();
             return fechaCaixa;
         }
+        manager.getTransaction().commit();
         return null;
     }
     
