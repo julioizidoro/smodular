@@ -155,12 +155,18 @@ public class RecebimentoBean {
         contasreceber.setDataRecebimento(new Date());
         contasreceber = contasReceberController.salvarContasReceber(contasreceber);
         if (pagotParcial) {
-            contasreceber.setValorConta(contasreceber.getValorConta() - valorRecebedibo);
-            contasreceber.setIdcontasReceber(null);
-            contasreceber.setContasreceberpagamento(1);
-            contasreceber.setDataVencimento(contasreceber.getDataVencimento());
-            contasreceber.setDataLancamento(new Date());
-            contasReceberController.salvarContasReceber(contasreceber);
+            Contasreceber parcial =new Contasreceber();
+            parcial.setDataLancamento(contasreceber.getDataLancamento());
+            parcial.setDataVencimento(contasreceber.getDataVencimento());
+            parcial.setEmpresa(contasreceber.getEmpresa());
+            parcial.setMes(contasreceber.getMes());
+            parcial.setNumeroDocumento(contasreceber.getNumeroDocumento());
+            parcial.setNumeroFaturaGerada(contasreceber.getNumeroFaturaGerada());
+            parcial.setValorConta(contasreceber.getValorConta() - valorRecebedibo);
+            parcial.setVendedor(contasreceber.getVendedor());
+            parcial.setCliente(contasreceber.getCliente());
+            parcial.setContasreceberpagamento(1);
+            contasReceberController.salvarContasReceber(parcial);
         }
     }
      

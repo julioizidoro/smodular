@@ -471,7 +471,8 @@ public class FrmConsultarContasReceber extends javax.swing.JFrame implements ICo
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int linha = contasjTable.getSelectedRow();
         if (linha>=0){
-            double valorParcial = Double.parseDouble(JOptionPane.showInputDialog("Informe valor Parcial para Pagto"));
+            String svalorParcial = JOptionPane.showInputDialog("Informe valor Parcial para Pagto ex. 10,00" );
+            Double valorParcial = Formatacao.formatarStringDouble(svalorParcial);
             if (valorParcial < listaContas.get(linha).getValorConta()){
                 listaContas.get(linha).setPagamento("SIM");
                 listaContas.get(linha).setValorReceber(valorParcial);
