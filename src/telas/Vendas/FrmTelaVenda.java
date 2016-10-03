@@ -1790,8 +1790,8 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
                     mensagemCupomFiscal(cliente.getNome(), cliente.getDocFederal()," ");
                 }
                 venda.calcularValorTributos();
-                String msg = "Valor Aprox. Tributo R$ " + Formatacao.foramtarDoubleString(venda.getValorTributo()) + " (" + 
-                        Formatacao.foramtarDoubleString(venda.getAliquotaImposto()) + "%)" + " Fonte IBPT\r\n";
+                String msg = "Trib. aprox. R$: " + Formatacao.foramtarDoubleString(venda.getValorTributoFederal()) + " Federal e " 
+                    + Formatacao.foramtarDoubleString(venda.getValorTributoEstadual()) + " Estadual "  + "   Fonte IBPT ca7gi3 \r\n";
                 this.mensagemCupom = msg + mensagemCupom;
                 new CupomFiscal().fecharCupom(venda, ecf, Formatacao.ConvercaoMonetariaFloat(valorDescontojTextField.getText()),
                         listaFormaPagamento, mensagemCupom);

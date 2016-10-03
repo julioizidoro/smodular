@@ -67,10 +67,14 @@ public class Venda implements Serializable {
     private int emissorecf;
     @Column(name = "percentualDesconto")
     private Float percentualDesconto;
-    @Column(name = "valorImposto")
-    private double valorImposto;
-    @Column(name = "aliquotaImposto")
-    private double aliquotaImposto;
+    @Column(name = "valorImpostofederal")
+    private double valorImpostofederal;
+    @Column(name = "aliquotaImpostofederal")
+    private double aliquotaImpostofederal;
+    @Column(name = "valorimpostoestadual")
+    private double valorimpostoestadual;
+    @Column(name = "aliquotaimpostoestadual")
+    private double aliquotaimpostoestadual;
 
     public Venda() {
         setValorAcrescimo(0.0f);
@@ -80,8 +84,10 @@ public class Venda implements Serializable {
         setValorVenda(0.0f);
         setValorVenda2(0.0f);
         setPercentualDesconto(0.0f);
-        setValorImposto(0.0);
-        setAliquotaImposto(0.0);
+        setValorImpostofederal(0.0);
+        setAliquotaImpostofederal(0.0);
+        setValorimpostoestadual(0.0);
+        setAliquotaimpostoestadual(0.0);
     }
 
     public Venda(Integer idvenda) {
@@ -264,21 +270,38 @@ public class Venda implements Serializable {
         this.valorVenda2 = valorVenda2;
     }
 
-    public double getValorImposto() {
-        return valorImposto;
+    public double getValorImpostofederal() {
+        return valorImpostofederal;
     }
 
-    public void setValorImposto(double valorImposto) {
-        this.valorImposto = valorImposto;
+    public void setValorImpostofederal(double valorImpostofederal) {
+        this.valorImpostofederal = valorImpostofederal;
     }
 
-    public double getAliquotaImposto() {
-        return aliquotaImposto;
+    public double getAliquotaImpostofederal() {
+        return aliquotaImpostofederal;
     }
 
-    public void setAliquotaImposto(double aliquotaImposto) {
-        this.aliquotaImposto = aliquotaImposto;
+    public void setAliquotaImpostofederal(double aliquotaImpostofederal) {
+        this.aliquotaImpostofederal = aliquotaImpostofederal;
+    }
+
+    public double getValorimpostoestadual() {
+        return valorimpostoestadual;
+    }
+
+    public void setValorimpostoestadual(double valorimpostoestadual) {
+        this.valorimpostoestadual = valorimpostoestadual;
+    }
+
+    public double getAliquotaimpostoestadual() {
+        return aliquotaimpostoestadual;
+    }
+
+    public void setAliquotaimpostoestadual(double aliquotaimpostoestadual) {
+        this.aliquotaimpostoestadual = aliquotaimpostoestadual;
     }
     
     
+
 }

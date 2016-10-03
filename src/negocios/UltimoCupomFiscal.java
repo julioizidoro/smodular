@@ -39,9 +39,8 @@ public class UltimoCupomFiscal {
         try {
             this.venda = vendaFacade.ultimaVendaGravada();
             String msg = this.mensagem;
-            this.mensagem =  "Valor Aprox. Tributo R$ " + Formatacao.foramtarDoubleString(venda.getValorImposto()) + " (" + 
-                        Formatacao.foramtarDoubleString(venda.getAliquotaImposto()) + "%)" + " Fonte IBPT\r\n" +
-                    msg;
+            this.mensagem =  "Trib. aprox. R$: " + Formatacao.foramtarDoubleString(venda.getValorImpostofederal()) + " Federal e " 
+                    + Formatacao.foramtarDoubleString(venda.getValorimpostoestadual()) + " Estadual "  + " Fonte IBPT ca7gi3 \r\n" + msg;
         } catch (Exception ex) {
             Logger.getLogger(UltimoCupomFiscal.class.getName()).log(Level.SEVERE, null, ex);
         }

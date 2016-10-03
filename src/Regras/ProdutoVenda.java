@@ -20,8 +20,10 @@ public class ProdutoVenda {
     private float valorTotal;
     private double valorColorante;
     private float valorCompra;
-    private double valorTributo;
-    private double aliquotoImposto;
+    private double valorTributoFederal;
+    private double aliquotoImpostoFederal;
+    private double valorTributoEstadual;
+    private double aliquotoImpostoEstadual;
     private int vendedor;
 
     public int getNumeroItem() {
@@ -88,21 +90,39 @@ public class ProdutoVenda {
         this.valorCompra = valorCompra;
     }
 
-    public double getValorTributo() {
-        return valorTributo;
+    public double getValorTributoFederal() {
+        return valorTributoFederal;
     }
 
-    public void setValorTributo(double valorTributo) {
-        this.valorTributo = valorTributo;
+    public void setValorTributoFederal(double valorTributoFederal) {
+        this.valorTributoFederal = valorTributoFederal;
     }
 
-    public double getAliquotoImposto() {
-        return aliquotoImposto;
+    public double getAliquotoImpostoFederal() {
+        return aliquotoImpostoFederal;
     }
 
-    public void setAliquotoImposto(double aliquotoImposto) {
-        this.aliquotoImposto = aliquotoImposto;
+    public void setAliquotoImpostoFederal(double aliquotoImpostoFederal) {
+        this.aliquotoImpostoFederal = aliquotoImpostoFederal;
     }
+
+    public double getValorTributoEstadual() {
+        return valorTributoEstadual;
+    }
+
+    public void setValorTributoEstadual(double valorTributoEstadual) {
+        this.valorTributoEstadual = valorTributoEstadual;
+    }
+
+    public double getAliquotoImpostoEstadual() {
+        return aliquotoImpostoEstadual;
+    }
+
+    public void setAliquotoImpostoEstadual(double aliquotoImpostoEstadual) {
+        this.aliquotoImpostoEstadual = aliquotoImpostoEstadual;
+    }
+
+    
    
     
 }

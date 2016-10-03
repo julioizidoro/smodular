@@ -43,10 +43,14 @@ public class Saida implements Serializable {
     private int venda;
     @Column(name = "produto_idproduto")
     private int produto;
-    @Column(name = "valorImposto")
-    private double valorImposto;
-    @Column(name = "aliquotaImposto")
-    private double aliquotaImposto;
+    @Column(name = "valorImpostofederal")
+    private double valorImpostofederal;
+    @Column(name = "aliquotaImpostofederal")
+    private double aliquotaImpostofederal;
+    @Column(name = "valorimpostoestadual")
+    private double valorimpostoestadual;
+    @Column(name = "aliquotaimpostoestadual")
+    private double aliquotaimpostoestadual;
     @Column(name = "valorComissao")
     private double valorComissao;
     @Column(name = "vendedor_idvendedor")
@@ -67,8 +71,10 @@ public class Saida implements Serializable {
         setQuantidade(0.0);
         setValorDesconto(0.0f);
         setPercentualDesconto(0.0f);
-        setValorImposto(0.0);
-        setAliquotaImposto(0.0);
+        setValorImpostofederal(0.0);
+        setAliquotaImpostofederal(0.0);
+        setValorimpostoestadual(0.0);
+        setAliquotaimpostoestadual(0.0);
     }
 
     public Saida(Integer idsaida) {
@@ -155,26 +161,37 @@ public class Saida implements Serializable {
         this.percentualDesconto = percentualDesconto;
     }
 
-    public double getValorImposto() {
-        return valorImposto;
+    public double getValorImpostofederal() {
+        return valorImpostofederal;
     }
 
-    public void setValorImposto(double valorImposto) {
-        this.valorImposto = valorImposto;
+    public void setValorImpostofederal(double valorImpostofederal) {
+        this.valorImpostofederal = valorImpostofederal;
     }
 
-    public double getAliquotaImposto() {
-        return aliquotaImposto;
+    public double getAliquotaImpostofederal() {
+        return aliquotaImpostofederal;
     }
 
-    public void setAliquotaImposto(double aliquotaImposto) {
-        this.aliquotaImposto = aliquotaImposto;
+    public void setAliquotaImpostofederal(double aliquotaImpostofederal) {
+        this.aliquotaImpostofederal = aliquotaImpostofederal;
     }
 
+    public double getValorimpostoestadual() {
+        return valorimpostoestadual;
+    }
 
+    public void setValorimpostoestadual(double valorimpostoestadual) {
+        this.valorimpostoestadual = valorimpostoestadual;
+    }
 
-   
+    public double getAliquotaimpostoestadual() {
+        return aliquotaimpostoestadual;
+    }
 
+    public void setAliquotaimpostoestadual(double aliquotaimpostoestadual) {
+        this.aliquotaimpostoestadual = aliquotaimpostoestadual;
+    }
 
     @Override
     public int hashCode() {

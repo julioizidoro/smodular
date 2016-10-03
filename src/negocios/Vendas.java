@@ -54,8 +54,10 @@ public class Vendas {
     private int teclaF4 = 0;
     private List<Double> listaColorante = new ArrayList<Double>();
     private float valorDesconto;
-    private double valorTributo;
-    private double aliquotaImposto;
+    private double valorTributoFederal;
+    private double aliquotaImpostoFederal;
+    private double valorTributoEstadual;
+    private double aliquotaImpostoEstadual;
     private int idCliente=0;
     private int idContasReceber=0;
     private int idEntrega=0;
@@ -127,11 +129,17 @@ public class Vendas {
         produtoVenda.setNumeroItem(getNumeroItem());
         Ibpt ibpt = consultarIbpt(produto.getNcm());
         if (ibpt!=null){
-            produtoVenda.setAliquotoImposto(ibpt.getAliquotaImposto());
-            produtoVenda.setValorTributo(produtoVenda.getValorTotal() * (ibpt.getAliquotaImposto()/100));
+            produtoVenda.setAliquotoImpostoFederal(ibpt.getNacionalfederal());
+            produtoVenda.setAliquotoImpostoEstadual(ibpt.getEstadual());
+            produtoVenda.setValorTributoFederal(produtoVenda.getValorTotal() * (ibpt.getNacionalfederal()/100));
+            if (ibpt.getEstadual()>0){
+                produtoVenda.setValorTributoEstadual(produtoVenda.getValorTotal() * (ibpt.getEstadual()/100));
+            }else produtoVenda.setValorTributoEstadual(0.0);
         }else {
-            produtoVenda.setAliquotoImposto(26.75);
-            produtoVenda.setValorTributo(produtoVenda.getValorTotal() * (25.75/100));
+            produtoVenda.setAliquotoImpostoFederal(26.75);
+            produtoVenda.setValorTributoFederal(produtoVenda.getValorTotal() * (25.75/100));
+            produtoVenda.setAliquotoImpostoEstadual(17.0);
+            produtoVenda.setValorTributoEstadual(produtoVenda.getValorTotal() * (17/100));
         }
         listaProdutoVenda.add(produtoVenda);
         return true;
@@ -171,8 +179,10 @@ public class Vendas {
                 saida.setPercentualDesconto(percentualDesconto);
                 saida.setValorVenda(saida.getValorVenda() - saida.getValorDesconto());
             }
-            saida.setValorImposto(listaProdutoVenda.get(i).getValorTributo());
-            saida.setAliquotaImposto(listaProdutoVenda.get(i).getAliquotoImposto());
+            saida.setValorImpostofederal(listaProdutoVenda.get(i).getValorTributoFederal());
+            saida.setAliquotaImpostofederal(listaProdutoVenda.get(i).getAliquotoImpostoFederal());
+            saida.setValorimpostoestadual(listaProdutoVenda.get(i).getValorTributoEstadual());
+            saida.setAliquotaimpostoestadual(listaProdutoVenda.get(i).getAliquotoImpostoEstadual());
             saida.setVenda(this.venda.getIdvenda());
             double valorComissao=0;
             saida.setVendedor(listaProdutoVenda.get(i).getVendedor());
@@ -211,8 +221,10 @@ public class Vendas {
             }else {
                 saida.setValorVenda2(listaProdutoVenda.get(i).getValorTotal());
             }
-            saida.setValorImposto(listaProdutoVenda.get(i).getValorTributo());
-            saida.setAliquotaImposto(listaProdutoVenda.get(i).getAliquotoImposto());
+            saida.setValorImpostofederal(listaProdutoVenda.get(i).getValorTributoFederal());
+            saida.setAliquotaImpostofederal(listaProdutoVenda.get(i).getAliquotoImpostoFederal());
+            saida.setValorimpostoestadual(listaProdutoVenda.get(i).getValorTributoEstadual());
+            saida.setAliquotaimpostoestadual(listaProdutoVenda.get(i).getAliquotoImpostoEstadual());
             saida.setVenda(this.venda.getIdvenda());
             Double valorCompra = calcularValorCusto(saida.getProduto());
             valorCompra = valorCompra * saida.getQuantidade();
@@ -308,8 +320,10 @@ public class Vendas {
         if (situacao==true){
             this.venda.setValorVenda2(this.venda.getValorVenda());
         }
-        this.venda.setAliquotaImposto(getAliquotaImposto());
-        this.venda.setValorImposto(getValorTributo());
+        this.venda.setAliquotaImpostofederal(getAliquotaImpostoFederal());
+        this.venda.setValorImpostofederal(getValorTributoFederal());
+        this.venda.setAliquotaimpostoestadual(getAliquotaImpostoEstadual());
+        this.venda.setValorimpostoestadual(getValorTributoEstadual());
         if (idContasReceber>0){
             this.venda.setCondicaoPagamento("A PRAZO");
         }
@@ -605,31 +619,55 @@ public class Vendas {
     }
     
     public void calcularValorTributos(){
-        double valor = 0;
-        double percentual=0;
+        double valorFederal = 0;
+        double percentualFederal=0;
+        double valorEstadual = 0;
+        double percentualEstadual=0;
         for (int i=0;i<listaProdutoVenda.size();i++){
-            valor = valor + listaProdutoVenda.get(i).getValorTributo();
-            percentual = percentual + listaProdutoVenda.get(i).getAliquotoImposto();
+            valorFederal = valorFederal + listaProdutoVenda.get(i).getValorTributoFederal();
+            percentualFederal = percentualFederal + listaProdutoVenda.get(i).getAliquotoImpostoFederal();
+            valorEstadual = valorEstadual + listaProdutoVenda.get(i).getValorTributoEstadual();
+            percentualEstadual = percentualEstadual + listaProdutoVenda.get(i).getAliquotoImpostoEstadual();
         }
-        setAliquotaImposto(percentual/listaProdutoVenda.size());
-        setValorTributo(valor);
+        setAliquotaImpostoFederal(percentualFederal/listaProdutoVenda.size());
+        setValorTributoFederal(valorFederal);
+        setAliquotaImpostoEstadual(percentualEstadual/listaProdutoVenda.size());
+        setValorTributoEstadual(valorEstadual);
     }
 
-    public double getValorTributo() {
-        return valorTributo;
+    public double getValorTributoFederal() {
+        return valorTributoFederal;
     }
 
-    public void setValorTributo(double valorTributo) {
-        this.valorTributo = valorTributo;
+    public void setValorTributoFederal(double valorTributoFederal) {
+        this.valorTributoFederal = valorTributoFederal;
     }
 
-    public double getAliquotaImposto() {
-        return aliquotaImposto;
+    public double getAliquotaImpostoFederal() {
+        return aliquotaImpostoFederal;
     }
 
-    public void setAliquotaImposto(double aliquotaImposto) {
-        this.aliquotaImposto = aliquotaImposto;
+    public void setAliquotaImpostoFederal(double aliquotaImpostoFederal) {
+        this.aliquotaImpostoFederal = aliquotaImpostoFederal;
     }
+
+    public double getValorTributoEstadual() {
+        return valorTributoEstadual;
+    }
+
+    public void setValorTributoEstadual(double valorTributoEstadual) {
+        this.valorTributoEstadual = valorTributoEstadual;
+    }
+
+    public double getAliquotaImpostoEstadual() {
+        return aliquotaImpostoEstadual;
+    }
+
+    public void setAliquotaImpostoEstadual(double aliquotaImpostoEstadual) {
+        this.aliquotaImpostoEstadual = aliquotaImpostoEstadual;
+    }
+
+    
     
     public void gravarCupomContaReceber(){
         ContasReceberController contasReceberController = new ContasReceberController();

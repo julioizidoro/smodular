@@ -214,9 +214,10 @@ public class ECFBematech {
    }
 
     public String reducaoZ(Date data, Config config){
-        //iRetorno = Bematech.ReducaoZ("", "");
+        String sdata = Formatacao.ConvercaoDataPadrao(new Date());
+        String hora = Formatacao.foramtarHoraString();
         if (verificarDataReducaoZ(data)){
-            iRetorno = Bematech.ReducaoZImpAntiga(); 
+            iRetorno = Bematech.ReducaoZ(sdata,hora);
             if (iRetorno==1){
                 gravarDataReducaoZ(config);
             }
