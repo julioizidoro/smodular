@@ -113,7 +113,7 @@ public class ECFBematech {
     }
 
     public String iniciaFechamentoCupom(String cAcreDesc, String cTipoAcreDesc, String cValorAcreDesc){
-        iRetorno = Bematech.IniciaFechamentoCupom(cAcreDesc, cTipoAcreDesc, cValorAcreDesc);
+        iRetorno = Bematech.IniciaFechamentoCupomMFD(cAcreDesc, cTipoAcreDesc, "0000", cValorAcreDesc);
         return verificarRetornoECF();
     }
 

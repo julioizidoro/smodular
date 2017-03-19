@@ -631,6 +631,19 @@ public class Formatacao {
         }
         return valorFormatado;
     }
+  
+  public static String formatarStringBematech2(float valor){
+         NumberFormat format = new DecimalFormat("0.00");
+        format.setMinimumFractionDigits(2);
+        String valorFormatado = "";
+        String svalor = format.format(valor);
+        for (int i=0;i<svalor.length();i++){
+            if ((svalor.charAt(i)!='.') && (svalor.charAt(i)!=',')){
+                valorFormatado = valorFormatado + svalor.charAt(i);
+            }
+        }
+        return valorFormatado;
+    }
     
     public static String formatarStringBematech(Double valor){
          NumberFormat format = new DecimalFormat("0.000");

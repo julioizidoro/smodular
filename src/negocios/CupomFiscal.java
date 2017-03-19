@@ -23,7 +23,7 @@ public class CupomFiscal {
         this.listaFormaPagamento = listaFormaPagamento;
         this.ecf = ecf;
         venda.getVenda().setNumeroECF(ecf.numeroCupom());
-        ecf.iniciaFechamentoCupom("D", "$", Formatacao.formatarStringBematech(valorDesconto));
+        ecf.iniciaFechamentoCupom("D", "$", Formatacao.formatarStringBematech2(valorDesconto));
         efetuarFormaPagamento();
         ecf.terminaFechamentoCupom(mensagemCupom);
     }

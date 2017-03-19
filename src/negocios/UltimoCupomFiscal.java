@@ -84,7 +84,7 @@ public class UltimoCupomFiscal {
     private void finalizarCupom(){
         venda.setNumeroECF(ecf.numeroCupom());
         float valorDesconto = venda.getValorDesconto();
-        gerarMensagemECF(ecf.iniciaFechamentoCupom("D", "$", Formatacao.formatarStringBematech(valorDesconto)));
+        gerarMensagemECF(ecf.iniciaFechamentoCupom("D", "$", Formatacao.formatarStringBematech2(valorDesconto)));
         Float total = venda.getValorVenda() - venda.getValorDesconto();
         gerarMensagemECF(ecf.efetuaFormaPagamento("Dinheiro", Formatacao.formatarStringBematech(total)));
         gerarMensagemECF(ecf.terminaFechamentoCupom(this.mensagem));
