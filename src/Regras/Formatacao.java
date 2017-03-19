@@ -629,7 +629,6 @@ public class Formatacao {
                 valorFormatado = valorFormatado + svalor.charAt(i);
             }
         }
-        JOptionPane.showMessageDialog(null, valorFormatado);
         return valorFormatado;
     }
     

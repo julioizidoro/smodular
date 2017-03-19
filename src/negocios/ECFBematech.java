@@ -99,11 +99,8 @@ public class ECFBematech {
         if (produtoVenda.getValorUnitario()>0){
             JOptionPane.showMessageDialog(null, "Valor mario q zero");
         }
-        String ecf = cCodigo +" " + cDescricao +" " + cAliquota +" " +"UN"+" " + cQtde+" " + 
-                cValor+" " + cValorDesc+" " + "00,00"+" " + "false" + " " + Formatacao.foramtarFloatString(produtoVenda.getValorUnitario());
         iRetorno = Bematech.VendeItemArredondamentoMFD(cCodigo, cDescricao, cAliquota,"UN", cQtde, 
                 cValor, cValorDesc, "00,00", false);
-        JOptionPane.showMessageDialog(null,ecf );
              return verificarRetornoECF();
     }
 
