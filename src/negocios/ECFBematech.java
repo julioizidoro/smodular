@@ -96,9 +96,7 @@ public class ECFBematech {
         String cValor = Formatacao.formatarStringBematech(produtoVenda.getValorUnitario());
         String cTipoDesconto  = "%";
         String cValorDesc     = "00,00";
-        if (produtoVenda.getValorUnitario()>0){
-            JOptionPane.showMessageDialog(null, "Valor mario q zero");
-        }
+ 
         iRetorno = Bematech.VendeItemArredondamentoMFD(cCodigo, cDescricao, cAliquota,"UN", cQtde, 
                 cValor, cValorDesc, "00,00", false);
              return verificarRetornoECF();
