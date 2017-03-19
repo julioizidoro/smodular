@@ -20,13 +20,11 @@ public class EstoqueDao {
 
     public Estoque getEstoque(int idProduto, int idEmpresa) throws Exception{
         manager = ConexaoSingleton.getConexao();
-        manager.getTransaction().begin();
         Estoque estoque = new Estoque();
         Query q = manager.createQuery("Select e from Estoque e where e.produto=" + idProduto +  " and e.empresa=" + idEmpresa);
         if (q.getResultList().size()>0){
             estoque = (Estoque) q.getSingleResult();
         }
-        manager.getTransaction().commit();
         return estoque;
     }
 

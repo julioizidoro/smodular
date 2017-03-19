@@ -620,8 +620,8 @@ public class Formatacao {
   }
   
   public static String formatarStringBematech(float valor){
-         NumberFormat format = new DecimalFormat("0.00");
-        format.setMinimumFractionDigits(2);
+         NumberFormat format = new DecimalFormat("0.000");
+        format.setMinimumFractionDigits(3);
         String valorFormatado = "";
         String svalor = format.format(valor);
         for (int i=0;i<svalor.length();i++){
@@ -629,6 +629,7 @@ public class Formatacao {
                 valorFormatado = valorFormatado + svalor.charAt(i);
             }
         }
+        JOptionPane.showMessageDialog(null, valorFormatado);
         return valorFormatado;
     }
     

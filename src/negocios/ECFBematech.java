@@ -80,6 +80,7 @@ public class ECFBematech {
     }
 
     public String vendeItem(ProdutoVenda produtoVenda){
+        
         String cCodigo = null;
         if (produtoVenda.getProduto().getCodigoNovo()==0){
             cCodigo = String.valueOf(produtoVenda.getProduto().getReferencia());
@@ -94,11 +95,16 @@ public class ECFBematech {
         int iCasasDecimais = 2;
         String cValor = Formatacao.formatarStringBematech(produtoVenda.getValorUnitario());
         String cTipoDesconto  = "%";
-        String cValorDesc     = "0000";
-
-        iRetorno = Bematech.VendeItem(cCodigo, cDescricao, cAliquota, cTipoQtde, cQtde, iCasasDecimais,
-                cValor, cTipoDesconto, cValorDesc);
-        return verificarRetornoECF();
+        String cValorDesc     = "00,00";
+        if (produtoVenda.getValorUnitario()>0){
+            JOptionPane.showMessageDialog(null, "Valor mario q zero");
+        }
+        String ecf = cCodigo +" " + cDescricao +" " + cAliquota +" " +"UN"+" " + cQtde+" " + 
+                cValor+" " + cValorDesc+" " + "00,00"+" " + "false" + " " + Formatacao.foramtarFloatString(produtoVenda.getValorUnitario());
+        iRetorno = Bematech.VendeItemArredondamentoMFD(cCodigo, cDescricao, cAliquota,"UN", cQtde, 
+                cValor, cValorDesc, "00,00", false);
+        JOptionPane.showMessageDialog(null,ecf );
+             return verificarRetornoECF();
     }
 
     public String cancelaItemAterior(){
@@ -229,7 +235,7 @@ public class ECFBematech {
     } 
 
     public String acionaGaveta(){
-        iRetorno = Bematech.AcionaGaveta();
+        iRetorno = Bematech.AcionaGuilhotinaMFD(iRetorno);
         return verificarRetornoECF();
     }
 

@@ -23,59 +23,48 @@ public class ProdutoDao {
 
     public List<Produto> getProduto() throws Exception{
         manager = ConexaoSingleton.getConexao();
-        manager.getTransaction().begin();
         List<Produto> listaProdutos = new ArrayList<Produto>();
         Query q = manager.createQuery("select p from Produto p order by p.descricao");
         listaProdutos = q.getResultList();
-        manager.getTransaction().commit();
         return listaProdutos;
     }
 
     public Produto getProduto(int idProduto) throws Exception {
         manager = ConexaoSingleton.getConexao();
-        manager.getTransaction().begin();
         Produto produto = new Produto();
         Query q = manager.createQuery("select p from Produto p where p.idProduto=" + idProduto);
         if (q.getResultList().size()>0){
             produto = (Produto) q.getSingleResult();
         }
-        manager.getTransaction().commit();
         return produto;
     }
     
     public Produto getCodigoNovo(int codigoNovo) throws SQLException{
         manager = ConexaoSingleton.getConexao();
-        manager.getTransaction().begin();
         Produto produto = new Produto();
         Query q = manager.createQuery("select p from Produto p where p.codigoNovo=" + codigoNovo);
         if (q.getResultList().size()>0){
             produto = (Produto) q.getSingleResult();
-            manager.getTransaction().commit();
             return produto;
         }
-        manager.getTransaction().commit();
         return null;
     }
 
     public List<Produto> getProduto(String descricao) throws Exception {
         manager = ConexaoSingleton.getConexao();
-        manager.getTransaction().begin();
         List<Produto> listaProdutos = new ArrayList<Produto>();
         Query q = manager.createQuery("select p from Produtos p where descricao like '%" + descricao + "%' order by p.descricao");
         listaProdutos = q.getResultList();
-        manager.getTransaction().commit();
         return listaProdutos;
     }
     
     public Produto getProdutoReferencia(int referencia) throws Exception {
         manager = ConexaoSingleton.getConexao();
-        manager.getTransaction().begin();
         Produto produto = new Produto();
         Query q = manager.createQuery("select p from Produto p where p.referencia=" + referencia);
         if (q.getResultList().size()>0){
             produto = (Produto) q.getResultList().get(0);
         }
-        manager.getTransaction().commit();
         return produto;        
     }     
 }
