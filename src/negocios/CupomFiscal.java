@@ -32,7 +32,7 @@ public class CupomFiscal {
         for (int i=0;i<this.listaFormaPagamento.size();i++){
             if (listaFormaPagamento.get(i).getValor()>0){
                 float valor = listaFormaPagamento.get(i).getValor();
-                gerarMensagemECF(ecf.efetuaFormaPagamento(listaFormaPagamento.get(i).getDescricao(), Formatacao.formatarStringBematech(valor)));
+                gerarMensagemECF(ecf.efetuaFormaPagamento(listaFormaPagamento.get(i).getDescricao(), Formatacao.formatarStringBematech2(valor)));
             }
         }
 
