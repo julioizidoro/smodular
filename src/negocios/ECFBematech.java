@@ -204,30 +204,21 @@ public class ECFBematech {
         
     }
     
-    public String identificacaoPAFECF(int idEmpresa){
+    public String identificacaoPAFECF(String numeroSerie){
         iRetorno = Bematech.NomeiaRelatorioIdentificacaoPAFECF();
         String indiceRelatorio;
         if (iRetorno<10){
-            indiceRelatorio = '0'  + String.valueOf(iRetorno);
+            indiceRelatorio = "02";
         }else {
-            indiceRelatorio = String.valueOf(iRetorno);
+            indiceRelatorio = "02";
         }
-        String numeroImpressoras = "";
-        EmissorEcfFacade emissorEcfFacade = new EmissorEcfFacade();
-        List<Emissorecf> listaEmissorecf = null;
-        try {
-            listaEmissorecf = emissorEcfFacade.listarEmissorEcf(idEmpresa);
-        } catch (Exception ex) {
-            Logger.getLogger(ECFBematech.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (listaEmissorecf!=null){
-            for(int i=0;i<listaEmissorecf.size();i++){
-                numeroImpressoras  = numeroImpressoras + listaEmissorecf.get(i).getNumeroSerie() + " ";
-            }
-        }
-        iRetorno = Bematech.IdentificacaoPAFECF(indiceRelatorio, "laudo", "00445335/0001-13", "Compufour Software Ltda", "Travessa Nazareno Brusco, 80 - Centro - Concordia SC - CEP 89700000",
-                                       "(49)3442-0122", "Wagner Muller", "CompuFour Software", "2013", "c:\\Arquivo Programas\\CompFour\\Aplicativos Comerciais\\fiscal1.exe",
-                                       "1c44fb0475ad0123e72ba33a93e3fb2e", " ", " ", numeroImpressoras);
+        
+    
+        
+       iRetorno = Bematech.IdentificacaoPAFECF("02", "POL1682016", "00445335/0001-13", "Compufour Software Ltda", "Travessa Nazareno Brusco, 80 - Centro - Concordia SC - CEP 89700000",
+                                       "(49)3442-0122", "Wagner Muller", "CompuFour Software", "2017", "c:\\Sistemas\\clippstore\\clippstore.jar",
+                                       "79D629A3F0447FB34DFB91AE38FD827C", " ", " ", numeroSerie);
+        JOptionPane.showMessageDialog(null, iRetorno);
         return verificarRetornoECF();
    }
 

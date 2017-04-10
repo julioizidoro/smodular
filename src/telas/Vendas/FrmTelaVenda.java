@@ -100,10 +100,12 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
         this.novoValor = 0;
         this.numeroParcelas = 1;
         this.fechacaixa = fechaCaixa;
-   //     gerarMensagemECF(ecf.verificaImpressoraLigada());
-    //    if (!(ecf.verificarSerieECF(config.getEmissorECF().getNumeroSerie()))){
-      //      JOptionPane.showMessageDialog(null,"Equipamento ECF não autorizado");
-       // }
+         ecf = new ECFBematech();
+        gerarMensagemECF(ecf.verificaImpressoraLigada());
+        if (!(ecf.verificarSerieECF(config.getEmissorECF().getNumeroSerie()))){
+            JOptionPane.showMessageDialog(null,"Equipamento ECF não autorizado");
+            System.exit(0);
+        }
         
         listaProdutoVenda = new ArrayList<ProdutoVenda>();
         model = new TelaVendaTableModel(listaProdutoVenda);
@@ -120,7 +122,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
         this.setTitle("Venda de Produtos");
         this.setVisible(true);
         //System.loadLibrary ("c:\\t\\BemaFI32.dll");  
-        ecf = new ECFBematech();
+       
         
     }
 

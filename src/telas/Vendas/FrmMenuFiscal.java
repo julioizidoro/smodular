@@ -544,7 +544,7 @@ jPanel1Layout.setHorizontalGroup(
     }//GEN-LAST:event_adicionarPlanoContasjButton13ActionPerformed
 
     private void adicionarPlanoContasjButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarPlanoContasjButton14ActionPerformed
-        ecf.identificacaoPAFECF(this.config.getEmpresa().getIdempresa());
+        ecf.identificacaoPAFECF(this.config.getEmissorECF().getNumeroSerie());
     }//GEN-LAST:event_adicionarPlanoContasjButton14ActionPerformed
 
     private void adicionarPlanoContasjButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarPlanoContasjButton15ActionPerformed
