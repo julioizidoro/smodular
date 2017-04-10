@@ -619,7 +619,7 @@ public class Formatacao {
       }else return "nao encontrado";
   }
   
-  public static String formatarStringBematech(float valor){
+  public static String formatarStringBematech3(float valor){
          NumberFormat format = new DecimalFormat("0.000");
         format.setMinimumFractionDigits(3);
         String valorFormatado = "";
@@ -644,8 +644,30 @@ public class Formatacao {
         }
         return valorFormatado;
     }
+  
+  public static String formatarFloatString(float valor){
+         NumberFormat format = new DecimalFormat("0.00");
+        format.setMinimumFractionDigits(2);
+        String svalor = format.format(valor);
+        return svalor;
+    }
+  
+ 
+  
+  public static String formatarStringBematech2(Double valor){
+         NumberFormat format = new DecimalFormat("0.00");
+        format.setMinimumFractionDigits(2);
+        String valorFormatado = "";
+        String svalor = format.format(valor);
+        for (int i=0;i<svalor.length();i++){
+            if ((svalor.charAt(i)!='.') && (svalor.charAt(i)!=',')){
+                valorFormatado = valorFormatado + svalor.charAt(i);
+            }
+        }
+        return valorFormatado;
+    }
     
-    public static String formatarStringBematech(Double valor){
+    public static String formatarStringBematech3(Double valor){
          NumberFormat format = new DecimalFormat("0.000");
         format.setMinimumFractionDigits(3);
         String valorFormatado = "";
@@ -657,6 +679,8 @@ public class Formatacao {
         }
         return valorFormatado;
     }
+    
+    
     public static String ConvercaoDataString(Date data, String formato){
         DateFormat df = new SimpleDateFormat(formato);
         String dataFormatada = df.format(data);
@@ -668,6 +692,8 @@ public class Formatacao {
         String formattedDate = formato.format(new Date());
         return formattedDate;
     }
+
+  
 
 
   

@@ -34,6 +34,7 @@ public class Config {
     private String portaParalela;
     private String portaSerial;
     private int vendedor;
+    private String marcarimpressora;
 
     public String getIdCaixa() {
         return idCaixa;
@@ -124,6 +125,8 @@ public class Config {
             setPortaParalela(props.getProperty("portaParalela"));
             setPortaSerial(props.getProperty("portaSerial"));
             setVendedor(Integer.parseInt(props.getProperty("vendedor")));
+            setMarcarimpressora(props.getProperty("marcaimpressora"));
+            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -156,6 +159,14 @@ public class Config {
 
     public void setPortaParalela(String portaParalela) {
         this.portaParalela = portaParalela;
+    }
+
+    public String getMarcarimpressora() {
+        return marcarimpressora;
+    }
+
+    public void setMarcarimpressora(String marcarimpressora) {
+        this.marcarimpressora = marcarimpressora;
     }
     
     

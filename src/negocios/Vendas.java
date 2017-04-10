@@ -88,8 +88,7 @@ public class Vendas {
     public boolean vendeItem(int referencia, double quantidade, int idEmpresa, float novoValor, float valorColorante, float percentualDesconto, int idVendedor) throws Exception {
         ProdutoVenda produtoVenda = new ProdutoVenda();
         ProdutoFacade produtoFacade = new ProdutoFacade();
-        Produto produto = new Produto();
-        produto = produtoFacade.getCodigoNovo(referencia);
+        Produto produto = produtoFacade.getCodigoNovo(referencia);
         if (produto==null){
             produto = produtoFacade.getProdutoReferencia(referencia);
             if (produto == null) {
@@ -333,7 +332,9 @@ public class Vendas {
         gerarSaida(this.venda.getPercentualDesconto(), idEmpresa);
         gravarSaida();
         gravarColorante();
-        gravarCupomContaReceber();
+        if (idContasReceber>0){
+            gravarCupomContaReceber();
+        }
     }
     
     public void FinalizarVendaSomenteCupom(double valorDesconto, double valorAcrescimo, List<Formapagamento> listaFormaPagamento) throws Exception {

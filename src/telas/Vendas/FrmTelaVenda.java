@@ -959,6 +959,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
 
     private void CodigojTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigojTextFieldKeyPressed
         if ((evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) && (CodigojTextField.getText().length() > 0)) {
+            teclaF4=4;
             gerarQuantidadeCodigo();
             if (this.venda == null) {
                 getVendedor(config.getVendedor());
@@ -976,7 +977,6 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
                 }
             }
             try {
-                
                 String codigo = CodigojTextField.getText();
                 if(codigo.length()>10){
                     codigo = verificarCodigoBarras(codigo);
@@ -985,7 +985,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
                 venda.vendeItem(Integer.parseInt(codigo), quantidadeVenda, this.config.getEmpresa().getIdempresa(), novoValor, 0,0, this.vendedor.getIdvendedor());
                 this.novoValor=0;
                 if (teclaF4 > 0) {
-                    gerarMensagemECF(ecf.vendeItem(this.venda.retornaUltimaItemVendido()));
+                    gerarMensagemECF(ecf.vendeItem(this.venda.retornaUltimaItemVendido(), config.getMarcarimpressora()));
                 }
                 ValorUnitariojTextField.setText(Formatacao.foramtarFloatString(venda.getListaProdutoVenda().get(venda.getListaProdutoVenda().size() - 1).getValorUnitario()));
                 SubTotaljTextField.setText(Formatacao.foramtarFloatString(venda.TotalVenda()-venda.getValorDesconto()));
@@ -1643,6 +1643,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
 
     public void finalizarBuscaTerminalCliente(Terminalcliente terminalCliente) {
         if (this.venda == null) {
+            teclaF4 = 4;
             this.vendedor = buscarVendedor(terminalCliente.getVendedor());
             venda = new Vendas(config, this.fechacaixa, this.vendedor, teclaF4, this.fechamento, this.devolucao);
             venda.setIdCliente(terminalCliente.getIdCliente());
@@ -1653,7 +1654,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
             }
             if (venda.getIdCliente()>0){
                 if (config.getPortaSerial().equalsIgnoreCase("1")){
-                    teclaF4=0;
+                    teclaF4=4;
                 }else teclaF4=4;
             }
             if (venda.getIdEntrega()>0){
@@ -1675,7 +1676,7 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
             try {
                 venda.vendeItem(buscarProduto(terminalProduto.getProduto()).getReferencia(), terminalProduto.getQuantidade(), this.config.getEmpresa().getIdempresa(), terminalProduto.getValorUnitario(), terminalProduto.getValorColorante().floatValue(), terminalProduto.getPercentualDesconto(), terminalProduto.getVendedor());
                 if ((teclaF4 > 0)){
-                    gerarMensagemECF(ecf.vendeItem(this.venda.retornaUltimaItemVendido()));
+                    gerarMensagemECF(ecf.vendeItem(this.venda.retornaUltimaItemVendido(), config.getMarcarimpressora()));
                 }
                 ValorUnitariojTextField.setText(Formatacao.foramtarFloatString(venda.getListaProdutoVenda().get(venda.getListaProdutoVenda().size() - 1).getValorUnitario()));
                 SubTotaljTextField.setText(Formatacao.foramtarFloatString(venda.TotalVenda()));
@@ -1794,13 +1795,15 @@ public final class FrmTelaVenda extends javax.swing.JFrame implements  ItelaVend
                     + Formatacao.foramtarDoubleString(venda.getValorTributoEstadual()) + " Estadual "  + "   Fonte IBPT ca7gi3 \r\n";
                 this.mensagemCupom = msg + mensagemCupom;
                 new CupomFiscal().fecharCupom(venda, ecf, Formatacao.ConvercaoMonetariaFloat(valorDescontojTextField.getText()),
-                        listaFormaPagamento, mensagemCupom);
+                        listaFormaPagamento, mensagemCupom, config.getMarcarimpressora());
                 this.venda.getVenda().setEmissorecf(config.getEmissorECF().getIdEmissorECF());
                 this.venda.getVenda().setNumeroECF(ecf.numeroCupom());
                 try {
                     if (teclaF4==4){
                         this.venda.FinalizarVenda(Formatacao.formatarStringfloat(valorDescontojTextField.getText()), Formatacao.formatarStringfloat(valorAcrescimojTextField.getText()), this.listaFormaPagamento, true, Formatacao.formatarStringfloat(percentualDescontojTextField.getText()), this.config.getEmpresa().getIdempresa());
-                        gravarVendaPrazoCupomFiscal();
+                        if (venda.getIdCliente()>0){
+                            gravarVendaPrazoCupomFiscal();
+                        }
                         if (venda.getIdEntrega()>0){
                             finalizarEntrega();
                         }

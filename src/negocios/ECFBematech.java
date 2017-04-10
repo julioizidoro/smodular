@@ -79,8 +79,7 @@ public class ECFBematech {
         }else return "FF";
     }
 
-    public String vendeItem(ProdutoVenda produtoVenda){
-        
+    public String vendeItem(ProdutoVenda produtoVenda, String marcaImpressora){
         String cCodigo = null;
         if (produtoVenda.getProduto().getCodigoNovo()==0){
             cCodigo = String.valueOf(produtoVenda.getProduto().getReferencia());
@@ -91,15 +90,29 @@ public class ECFBematech {
         }else cDescricao = produtoVenda.getProduto().getDescricao();
         String cAliquota = converterAliquoICMS(buscarAliquota(produtoVenda.getProduto().getAliquota()).getDescricao());
         String cTipoQtde = "F";
-        String cQtde  = Formatacao.formatarStringBematech(produtoVenda.getQuantidade());
+        String cQtde;
+         if (marcaImpressora.equalsIgnoreCase("MP-4200")){
+            cQtde  = Formatacao.formatarStringBematech3(produtoVenda.getQuantidade());
+        }else {
+            cQtde  = Formatacao.formatarStringBematech3(produtoVenda.getQuantidade());
+        }
         int iCasasDecimais = 2;
-        String cValor = Formatacao.formatarStringBematech(produtoVenda.getValorUnitario());
+        String cValor ="0.000";
+        if (marcaImpressora.equalsIgnoreCase("MP-4200")){
+            cValor = Formatacao.formatarStringBematech3(produtoVenda.getValorUnitario());
+        }else {
+            cValor = Formatacao.formatarStringBematech2(produtoVenda.getValorUnitario());
+        }
         String cTipoDesconto  = "%";
         String cValorDesc     = "00,00";
- 
-        iRetorno = Bematech.VendeItemArredondamentoMFD(cCodigo, cDescricao, cAliquota,"UN", cQtde, 
+        if (marcaImpressora.equalsIgnoreCase("NP-4200")){
+            iRetorno = Bematech.VendeItemArredondamentoMFD(cCodigo, cDescricao, cAliquota,"UN", cQtde, 
                 cValor, cValorDesc, "00,00", false);
-             return verificarRetornoECF();
+        }else {
+            iRetorno = Bematech.VendeItem(cCodigo, cDescricao, cAliquota,"F", cQtde, 2,
+                cValor, "%", "0000");
+        }
+        return verificarRetornoECF();
     }
 
     public String cancelaItemAterior(){
@@ -112,12 +125,16 @@ public class ECFBematech {
         return verificarRetornoECF();
     }
 
-    public String iniciaFechamentoCupom(String cAcreDesc, String cTipoAcreDesc, String cValorAcreDesc){
-        iRetorno = Bematech.IniciaFechamentoCupomMFD(cAcreDesc, cTipoAcreDesc, "0000", cValorAcreDesc);
+    public String iniciaFechamentoCupom(String cAcreDesc, String cTipoAcreDesc, String cValorAcreDesc, String marcaImpressora){
+        if (marcaImpressora.equalsIgnoreCase("MP-4200")){
+            iRetorno = Bematech.IniciaFechamentoCupomMFD(cAcreDesc, cTipoAcreDesc, "0000", cValorAcreDesc);
+        }else {
+            iRetorno = Bematech.IniciaFechamentoCupom(cAcreDesc, cTipoAcreDesc, cValorAcreDesc);
+        }
         return verificarRetornoECF();
     }
 
-    public String efetuaFormaPagamento(String cFormaPgto, String cValorPago){
+    public String efetuaFormaPagamento(String cFormaPgto, String cValorPago, String marcaImpressora){
         iRetorno = Bematech.EfetuaFormaPagamento(cFormaPgto, cValorPago);
         return verificarRetornoECF();
     }

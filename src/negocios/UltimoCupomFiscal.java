@@ -76,7 +76,7 @@ public class UltimoCupomFiscal {
                 }else valorUnitario = (listaSaida.get(i).getValorVenda() / listaSaida.get(i).getQuantidade().floatValue());
                 produtoVenda.setValorUnitario(valorUnitario);
                 produtoVenda.setValorTotal(valorUnitario * listaSaida.get(i).getQuantidade().floatValue());
-                gerarMensagemECF(ecf.vendeItem(produtoVenda));
+                gerarMensagemECF(ecf.vendeItem(produtoVenda, config.getMarcarimpressora()));
             }
         }
     }
@@ -84,9 +84,9 @@ public class UltimoCupomFiscal {
     private void finalizarCupom(){
         venda.setNumeroECF(ecf.numeroCupom());
         float valorDesconto = venda.getValorDesconto();
-        gerarMensagemECF(ecf.iniciaFechamentoCupom("D", "$", Formatacao.formatarStringBematech2(valorDesconto)));
+        gerarMensagemECF(ecf.iniciaFechamentoCupom("D", "$", Formatacao.formatarStringBematech2(valorDesconto), config.getMarcarimpressora()));
         Float total = venda.getValorVenda() - venda.getValorDesconto();
-        gerarMensagemECF(ecf.efetuaFormaPagamento("Dinheiro", Formatacao.formatarStringBematech2(total)));
+        gerarMensagemECF(ecf.efetuaFormaPagamento("Dinheiro", Formatacao.formatarFloatString(total), config.getMarcarimpressora()));
         gerarMensagemECF(ecf.terminaFechamentoCupom(this.mensagem));
     }
     
